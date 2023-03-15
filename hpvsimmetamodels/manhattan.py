@@ -48,9 +48,6 @@ def run_model(parameters, pop_size=2e5):
     to_excise   = lambda sim: sim.get_intervention('assign_tx').outcomes['excision'] # Define who's eligible for excision
     excision    = hpv.treat_delay(eligibility=to_excise, prob=parameters["excision_prob"], product='excision', label="excision") # Administer excision
 
-    # Create a hypothetical dataframe of costs
-    costs = {'screen': 20, 'triage': 20, 'assign_tx': 0, 'ablation': 5, 'excision': 30}
-
     # Create the sim with and without interventions
     sim = hpv.Sim(
         pars, 
@@ -85,8 +82,6 @@ def run_model(parameters, pop_size=2e5):
                 'population': parameters["population"],
                 'new_cancers': df["new_cancers"][epoch],
                 'new_cancer_deaths': df["new_cancer_deaths"][epoch],
-                # 'av_age_cancer_deaths': df["av_age_cancer_deaths"][epoch],
-                # 'av_age_cancers': df["av_age_cancers"][epoch],
                 'dalys': df["dalys"][epoch],
                 'intervention_costs': df['intervention_costs'][epoch]
             })
